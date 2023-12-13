@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aprendizaje Personal</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Aprendizaje Personal</h1>
+        <div class="input-container">
+            <textarea id="infoInput" placeholder="Ingresa tu información aquí"></textarea>
+        </div>
+        <button id="visualizarBtn">Visualizar</button>
+        <button id="guardarBtn">Guardar en JSON</button>
+        <button id="cargarBtn">Cargar desde JSON</button>
+        <div class="info-display">
+            <h2>Información Almacenada:</h2>
+            <div id="infoOutput"></div>
+        </div>
+    </div>
+</body>
+</html>
+
+
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.input-container {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    resize: vertical;
+}
+
+button {
+    padding: 10px 20px;
+    margin: 5px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.info-display {
+    text-align: left;
+}
+
+h2 {
+    font-size: 20px;
+    margin-top: 20px;
+}
+
+#infoOutput {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    background-color: #fff;
+}
+
+
+
+</style>
+
+
+    <script>
+document.addEventListener("DOMContentLoaded", function () {
+    const infoInput = document.getElementById("infoInput");
+    const visualizarBtn = document.getElementById("visualizarBtn");
+    const guardarBtn = document.getElementById("guardarBtn");
+    const cargarBtn = document.getElementById("cargarBtn");
+    const infoOutput = document.getElementById("infoOutput");
+
+    // Manejar el evento al hacer clic en el botón Visualizar
+    visualizarBtn.addEventListener("click", function () {
+        const inputText = infoInput.value;
+        infoOutput.innerHTML = `<p>${inputText}</p>`;
+    });
+
+    // Manejar el evento al hacer clic en el botón Guardar en JSON
+    guardarBtn.addEventListener("click", function () {
+        const inputText = infoInput.value;
+        const jsonData = JSON.stringify({ info: inputText });
+        localStorage.setItem("learningInfo", jsonData);
+    });
+
+    // Manejar el evento al hacer clic en el botón Cargar desde JSON
+    cargarBtn.addEventListener("click", function () {
+        const jsonData = localStorage.getItem("learningInfo");
+        if (jsonData) {
+            const data = JSON.parse(jsonData);
+            infoOutput.innerHTML = `<p>${data.info}</p>`;
+        } else {
+            infoOutput.innerHTML = "<p>No hay información almacenada.</p>";
+        }
+    });
+});
+
+
+</script>
